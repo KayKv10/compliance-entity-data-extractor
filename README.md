@@ -44,8 +44,7 @@ A service to extract structured data from unstructured compliance documents usin
         --port 8000 \
         --served-model-name llama-3.1-8b-instruct \
         --gpu-memory-utilization 0.90 \
-        --max-model-len 8192 \
-        --temperature 0.0
+        --max-model-len 8192
     ```
 
     Keep this terminal open. The server is ready when you see the confirmation messages.
@@ -57,8 +56,8 @@ A service to extract structured data from unstructured compliance documents usin
     In a new terminal, activate the environment and run the main script
 
     ```bash
-    python src/data_extractor/main.py \
-        --input-file data/my_contract.txt \
+    python -m src.data_extractor.main \
+        --input-file data/test.txt \
         --output-file output.json \
         --document-name "Example Document"
     ```

@@ -2,6 +2,7 @@
 
 import argparse
 import asyncio
+import json
 from .segmenter import segment_document
 from .chunker import chunk_segments
 from .extractor import process_entities_concurrently
@@ -96,11 +97,12 @@ async def main():
     )
 
     # --- 5. Stage 4: Save Output ---
-    if final_result and final_result.entities:
-        print(f"\nSaving {len(final_result.entities)} extracted entities to: {args.output_file}")
+    if final_result and final_result.get("entities"):
+        print(f"\nSaving {len(final_result['entities'])} extracted entities to: {args.output_file}")
         try:
             with open(args.output_file, 'w', encoding='utf-8') as f:
-                f.write(final_result.model_dump_json(indent=2))
+                # Use json.dumps() to convert the dictionary to a JSON formatted string
+                json.dump(final_result, f, indent=2)
             print("Process completed successfully!")
         except Exception as e:
             print(f"An error occurred while saving the output file: {e}")
